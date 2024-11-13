@@ -349,5 +349,12 @@ public final class Field {
                                                                                                             // opposite
                                                                                                             // side, and
                                                                                                             // bank in
+  public static final class ClimberConstants {
+    public static final int CLIMBER_MOTOR_LEFT = 22;
+    public static final int CLIMBER_MOTOR_RIGHT = 23;
+    public static final double MAX_MOTOR_ROTATIONS = 235;
+  
+    
+  }
 }
 }
