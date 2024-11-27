@@ -8,7 +8,9 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import static frc.robot.settings.Constants.PS4Driver.*;
 
+import frc.robot.commands.ClimberCommand;
 import frc.robot.commands.Drive;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +24,7 @@ import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.Preferences;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,33 +34,42 @@ import edu.wpi.first.wpilibj.PowerDistribution;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
+  private final boolean climberExists = Preferences.getBoolean("climber", true);
+ 
   private DrivetrainSubsystem driveTrain;
   private Drive defaultDriveCommand;
   private PS4Controller driverController;
+  private PS4Controller codriverController;
   private SendableChooser<Command> autoChooser;
   private PowerDistribution PDP;
+  private Climber climber;
 
   BooleanSupplier ZeroGyroSup;
   BooleanSupplier AmpAngleSup;
   BooleanSupplier falseSup;
   DoubleSupplier zeroSup;
-  
+  BooleanSupplier climberDown;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    Preferences.initBoolean("Climber", true);
 
     DataLogManager.start(); //Start logging
     DriverStation.startDataLog(DataLogManager.getLog()); //Joystick Data logging
 
     driverController = new PS4Controller(DRIVE_CONTROLLER_ID);
+    codriverController = new PS4Controller(DRIVE_CONTROLLER_ID);
     PDP = new PowerDistribution(1, ModuleType.kRev);
     ZeroGyroSup = driverController::getPSButton;
+    climberDown = codriverController::getPSButton;
     zeroSup = ()->0;
     falseSup = ()->false;
     
     driveTrainInst();
+     if(climberExists) {climberInst();}
     configureBindings();
     // Configure the trigger bindings
+   
   }
 
   private void driveTrainInst() {
@@ -69,7 +81,19 @@ public class RobotContainer {
       () -> modifyAxis(-driverController.getRawAxis(X_AXIS), DEADBAND_NORMAL),
       () -> modifyAxis(-driverController.getRawAxis(Z_AXIS), DEADBAND_NORMAL));
       driveTrain.setDefaultCommand(defaultDriveCommand);
+
   }
+  private void climberInst() {
+   climber = new Climber();
+   climber.setDefaultCommand(new ClimberCommand(
+    climber,
+    ()->modifyAxis(codriverController.getLeftX(), DEADBAND_NORMAL),
+    ()->modifyAxis(codriverController.getLeftY(), DEADBAND_NORMAL),
+    climberDown));
+
+
+
+   }
   
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the

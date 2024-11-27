@@ -339,22 +339,16 @@ public final class Field {
                                                                                  // wil aim to the opposite side, and
                                                                                  // bank in
 
-  public static final double CALCULATED_SHOOTER_BLUE_SPEAKER_X = AMP_SIDE_OUTER_TAPE_CORNER_BLUE_X - 3.213; // changed
-                                                                                                            // so that
-                                                                                                            // shots
-                                                                                                            // from the
-                                                                                                            // side wil
-                                                                                                            // aim to
-                                                                                                            // the
-                                                                                                            // opposite
-                                                                                                            // side, and
-                                                                                                            // bank in
+  public static final double CALCULATED_SHOOTER_BLUE_SPEAKER_X = AMP_SIDE_OUTER_TAPE_CORNER_BLUE_X - 3.213; // changed so that shots from the side wil aim to the opposite side, and bank in
+ 
+  }
   public static final class ClimberConstants {
     public static final int CLIMBER_MOTOR_LEFT = 22;
     public static final int CLIMBER_MOTOR_RIGHT = 23;
     public static final double MAX_MOTOR_ROTATIONS = 235;
-  
+    public static final double CLIMBER_SPEED_DOWN = 1;
+    public static final double CLIMBER_SPEED_UP = 1;
     
   }
-}
+
 }

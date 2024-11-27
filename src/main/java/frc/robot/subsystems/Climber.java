@@ -8,7 +8,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkLimitSwitch.Type;
-import frc.robot.settings.Constants.Field.ClimberConstants;
+import frc.robot.settings.Constants.ClimberConstants;
 import com.revrobotics.SparkRelativeEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -71,6 +71,11 @@ public boolean isClimberIn(){
 public void resetInitial(){
     initialEncoderRotationsL = climbEncoderL.getPosition();
     initialEncoderRotationsR = climbEncoderR.getPosition();
+}
+
+public void climberStop(){
+    climbMotorL.set(0);
+    climbMotorR.set(0);
 }
 @Override
 public void periodic(){
