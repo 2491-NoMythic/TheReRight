@@ -17,7 +17,7 @@ public class ClimberCommand extends Command{
       this.climber  = climber;
       this.translationYSupplierLeft = translationYSupplierLeft;
       this.translationYSupplierRight = translationYSupplierRight;
-      this.climberDowen = climberDowen;
+      this.climberDowen = climberDown;
       addRequirements(climber);
     }
 
@@ -26,12 +26,15 @@ public class ClimberCommand extends Command{
 
     @Override
     public void execute(){
-        if (climberDowen.getAsBoolean() && !climber.isClimberIn()) {
+        if (climberDowen.getAsBoolean()) {
             climber.climberGoLeft(ClimberConstants.CLIMBER_SPEED_DOWN);
-            climber.climberGoRigt(ClimberConstants.CLIMBER_SPEED_UP);
+            climber.climberGoRigt(ClimberConstants.CLIMBER_SPEED_DOWN);
         }
-
-    }
+        else {
+            climber.climberGoLeft(translationYSupplierLeft.getAsDouble());
+            climber.climberGoRigt(translationYSupplierRight.getAsDouble());
+        }
+        }
     @Override
     public void end(boolean interrupt) {
         climber.climberStop();

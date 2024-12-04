@@ -89,7 +89,7 @@ public void periodic(){
     double rSpeed = 0;
 
     if (runSpeedL>0) {
-        if (limitSwitchL.isPressed()) {
+        if (!limitSwitchL.isPressed()) {
             lSpeed = runSpeedL;     
         }     
     }
@@ -99,7 +99,7 @@ public void periodic(){
         }
     }
     if (runsSpeedR>0) {
-        if (limitSwitchR.isPressed()) {
+        if (!limitSwitchR.isPressed()) {
             rSpeed = runsSpeedR;
         }
     } 

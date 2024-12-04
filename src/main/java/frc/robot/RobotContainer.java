@@ -58,9 +58,10 @@ public class RobotContainer {
     DriverStation.startDataLog(DataLogManager.getLog()); //Joystick Data logging
 
     driverController = new PS4Controller(DRIVE_CONTROLLER_ID);
-    codriverController = new PS4Controller(DRIVE_CONTROLLER_ID);
+    codriverController = new PS4Controller(CODRIVERCONTROLLER);
     PDP = new PowerDistribution(1, ModuleType.kRev);
     ZeroGyroSup = driverController::getPSButton;
+    AmpAngleSup = driverController::getSquareButton;
     climberDown = codriverController::getPSButton;
     zeroSup = ()->0;
     falseSup = ()->false;
@@ -87,7 +88,7 @@ public class RobotContainer {
    climber = new Climber();
    climber.setDefaultCommand(new ClimberCommand(
     climber,
-    ()->modifyAxis(codriverController.getLeftX(), DEADBAND_NORMAL),
+    ()->modifyAxis(codriverController.getRightY(), DEADBAND_NORMAL),
     ()->modifyAxis(codriverController.getLeftY(), DEADBAND_NORMAL),
     climberDown));
 

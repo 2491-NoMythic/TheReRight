@@ -284,7 +284,7 @@ public final class PS4Driver {
   }
 
   public static final int DRIVE_CONTROLLER_ID = 0;
-  public static final int OPERATOR_CONTROLLER_ID = 1;
+  public static final int CODRIVERCONTROLLER = 1;
   /**
    * Left stick Y-axis.
    * <p>
